@@ -1,18 +1,12 @@
-FROM debian:wheezy
+FROM centos:centos7
 MAINTAINER tokuhirom
 
-ENV DEBIAN_FRONTEND noninteractive
+RUN yum update -y && \
+    yum groupinstall -y "Development Tools" && \
+    yum install -y perl-devel gdbm-devel openssl-devel tar bzip2 && \
+    yum clean all
 
-RUN echo "deb http://cdn.debian.net/debian/ wheezy main contrib non-free" > /etc/apt/sources.list.d/mirror.jp.list
-RUN echo "deb http://cdn.debian.net/debian/ wheezy-updates main contrib" >> /etc/apt/sources.list.d/mirror.jp.list
-RUN rm /etc/apt/sources.list
-
-RUN apt-get update && \
-    apt-get install -yq --no-install-recommends build-essential curl ca-certificates tar bzip2 patch && \
-    apt-get clean && \
-    rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
-
-ENV PERL_VERSION 5.20.2
+ENV PERL_VERSION 5.20.1
 ENV PATH /opt/perl/bin:$PATH
 
 # Perl
