@@ -1,10 +1,10 @@
 FROM centos:centos7
 MAINTAINER tokuhirom
 
-RUN yum update && \
+RUN yum update -y && \
     yum groupinstall -y "Development Tools" && \
     yum install -y perl-devel gdbm-devel openssl-devel tar bzip2 && \
-    yum clean
+    yum clean all
 
 ENV PERL_VERSION 5.20.1
 ENV PATH /opt/perl/bin:$PATH
